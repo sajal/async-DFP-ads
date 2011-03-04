@@ -9,7 +9,7 @@ Following variables need to be prepopulated.
 2) adslots = An array with adobjects for ad locations
 
 `
-var adslots = [{"pubid": "ca-pub-XXXXXX",
+var adslots = [{"pubid": "ca-pub-XXXXXX", // pubid again
   "slotname": "test_async_lb", // ad unit name from DFP
   "width": 728, // width of ad unit
   "height": 90, // height of ad unit
@@ -22,3 +22,17 @@ var adslots = [{"pubid": "ca-pub-XXXXXX",
   "target": "skyscraper"
   }];
 `
+
+After the above 2 variables are populated, include the script using LABjs
+
+    $LAB.script("dfp-lab.js").wait()
+
+
+Warnings:-
+1) Requires LABjs to be loaded - http://labjs.com/
+2) Uses DFP's iframe method, so no expandable ads - http://www.google.com/support/dfp_sb/bin/answer.py?hl=en&answer=90777
+3) This is a hack. If DFP changes their ad loading mechanisms this may break your site.
+4) I don't confirm or deny if this script voilates any TOS.
+5) Goto 1)
+
+document.write is evil. It must die!
