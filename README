@@ -1,0 +1,24 @@
+
+Read background info at : http://www.sajalkayan.com/complete-asynchronous-ad-loading-using-dfp-and-labjs.html
+
+Usage:-
+
+Following variables need to be prepopulated.
+
+1) DFPpubid = "ca-XXXXXX" - where XXXXXX is your adsense publisher id as seen on top right corner of adsense pages
+2) adslots = An array with adobjects for ad locations
+
+`
+var adslots = [{"pubid": "ca-pub-XXXXXX",
+  "slotname": "test_async_lb", // ad unit name from DFP
+  "width": 728, // width of ad unit
+  "height": 90, // height of ad unit
+  "target": "leaderboard" // id of the <div> to be populated with the ad
+  }, // repeat for as many ad units needed
+  {"pubid": "ca-pub-XXXXXX",
+  "slotname": "test_async_sky",
+  "width": 160,
+  "height": 600,
+  "target": "skyscraper"
+  }];
+`
