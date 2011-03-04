@@ -9,6 +9,7 @@ Following variables need to be prepopulated.
 2) adslots = An array with adobjects for ad locations
 
 `
+var DFPpubid = "ca-XXXXXX";
 var adslots = [{"pubid": "ca-pub-XXXXXX", // pubid again
   "slotname": "test_async_lb", // ad unit name from DFP
   "width": 728, // width of ad unit
