@@ -13,7 +13,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
 
 //debug
 
-//var renderad = [];
+var targets = [];
 function docwrt(str){
         console.log(str);
   var script = str.replace(/(.*)\=\"/g, '').replace(/\"(.*)/g, '');
@@ -39,20 +39,27 @@ function docwrt(str){
       var Wrapper_GA_googleFillSlot = function(targetad){
         var slotname  = targetad["slotname"];
         var targetloc  = targetad["target"];
+        targets.push = {"slotname": slotname, "targetloc": targetloc};
         var docwrttemp = function(str){
           var adscript = str.match(/[\"|\'](.*)[\"|\']/g, '');
           adscript = adscript[0].replace(/\"/g, '');
           adscript = adscript.replace(/\'/g, "");
           console.log(targetloc + " - " + str);
           console.log(targetloc + " - " + adscript);
-          function renderad(str, targetloc){            
-            console.log(targetloc + " - " + str)
-            target = document.getElementById(targetloc);
+          function renderad(str){
+            //try to guess slotname to determine target
+            for (y in targets){
+              console.log(targets[y].slotname);
+              if (str.match(targets[y].slotname)){
+                console.log("yay");
+                var targetdiv = targets[y].targetloc;
+              }
+            }
+            console.log(targetdiv + " - " + str)
+            target = document.getElementById(targetdiv);
             target.innerHTML = str            
           }
-          document.write = function(str){
-            renderad(str, targetloc);
-          };    
+          document.write = renderad;    
           $LAB.script(adscript).wait();
         };
         document.write = docwrttemp;
