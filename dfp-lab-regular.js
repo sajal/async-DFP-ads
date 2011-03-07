@@ -47,7 +47,8 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             adscript = adscript.replace(/\'/g, "");
             console.log(targetloc + " - " + str);
             console.log(targetloc + " - " + adscript);
-            
+            target = document.getElementById(targetloc);
+            target.innerHTML = ""; //make it blank
             function renderad(str){
               //try to guess slotname to determine target
               /*              
@@ -61,8 +62,13 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
               */
               console.log(targetloc + " - " + str)
               //Logic to parse str and $LAB-ify external script goes here
-              target = document.getElementById(targetloc);
-              target.innerHTML = str            
+              if (!(str.match(/\<script/i))){
+                // OK no script tags in there inject HTML
+                
+                target.innerHTML += str;
+                } else {
+                  // :'( has script
+                }
             }
             document.write = renderad;    
             
@@ -76,6 +82,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
           document.write = docwrttemp;
           GA_googleFillSlot(slotname);
         };
+        adslots.reverse(); //cause we read from bottom using pop()
         if (adslots.length > 0){
           Wrapper_GA_googleFillSlot(adslots.pop());
         }
