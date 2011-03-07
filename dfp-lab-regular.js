@@ -50,6 +50,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             
             function renderad(str){
               //try to guess slotname to determine target
+              /*              
               for (y in adslots){
                 console.log(adslots[y].slotname);
                 if (str.match(adslots[y].slotname)){
@@ -57,22 +58,32 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
                   var targetdiv = adslots[y].target;
                 }
               }
-              console.log(targetdiv + " - " + str)
-              target = document.getElementById(targetdiv);
+              */
+              console.log(targetloc + " - " + str)
+              target = document.getElementById(targetloc);
               target.innerHTML = str            
             }
             document.write = renderad;    
             
-            $LAB.script(adscript).wait();
+            $LAB.script(adscript).wait(function(){
+              if (adslots.length > 0){
+                Wrapper_GA_googleFillSlot(adslots.pop());
+              }
+            });
               
           };
           document.write = docwrttemp;
           GA_googleFillSlot(slotname);
         };
+        if (adslots.length > 0){
+          Wrapper_GA_googleFillSlot(adslots.pop());
+        }
+        /*
         for (var x in adslots){
           console.log(adslots[x]["target"]);
           Wrapper_GA_googleFillSlot(adslots[x]);        
         }
+        */
         //GA_googleAddSlot("DFPpubid", "test_async_lb");
         //Wrapper_googleFillSlotWithSize("ca-pub-7046344781760701", "test_async_lb", 728, 90, "leaderboard");
         //Wrapper_googleFillSlotWithSize("ca-pub-7046344781760701", "test_async_sky", 160, 600, "skyscraper");
