@@ -46,13 +46,14 @@ function docwrt(str){
           adscript = adscript.replace(/\'/g, "");
           console.log(targetloc + " - " + str);
           console.log(targetloc + " - " + adscript);
+          
           function renderad(str){
             //try to guess slotname to determine target
-            for (y in targets){
-              console.log(targets[y].slotname);
-              if (str.match(targets[y].slotname)){
+            for (y in adslots){
+              console.log(adslots[y].slotname);
+              if (str.match(adslots[y].slotname)){
                 console.log("yay");
-                var targetdiv = targets[y].targetloc;
+                var targetdiv = adslots[y].target;
               }
             }
             console.log(targetdiv + " - " + str)
@@ -60,7 +61,9 @@ function docwrt(str){
             target.innerHTML = str            
           }
           document.write = renderad;    
+          
           $LAB.script(adscript).wait();
+            
         };
         document.write = docwrttemp;
         GA_googleFillSlot(slotname);
