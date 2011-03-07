@@ -60,6 +60,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
               }
               */
               console.log(targetloc + " - " + str)
+              //Logic to parse str and $LAB-ify external script goes here
               target = document.getElementById(targetloc);
               target.innerHTML = str            
             }
