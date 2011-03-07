@@ -30,7 +30,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
   	}
   }
   function docwrt(str){
-          console.log(str);
+//          console.log(str);
     var script = str.replace(/(.*)\=\"/g, '').replace(/\"(.*)/g, '');
           //console.log(script.match(/cookie\.js/g));
     if (script.match(/cookie\.js/g)){
@@ -42,10 +42,10 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
         // following function makes the magic happen!
         
         // lets load the ads
-        console.log(adslots);
+        //console.log(adslots);
         if (adslots){
           for (var x in adslots){
-            console.log(adslots[x]["pubid"] + " - " + adslots[x]["slotname"]);
+            //console.log(adslots[x]["pubid"] + " - " + adslots[x]["slotname"]);
             GA_googleAddSlot(adslots[x]["pubid"], adslots[x]["slotname"]);
           }
         }
@@ -59,8 +59,8 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             var adscript = str.match(/[\"|\'](.*)[\"|\']/g, '');
             adscript = adscript[0].replace(/\"/g, '');
             adscript = adscript.replace(/\'/g, "");
-            console.log(targetloc + " - " + str);
-            console.log(targetloc + " - " + adscript);
+            //console.log(targetloc + " - " + str);
+            //console.log(targetloc + " - " + adscript);
 //            adscript = "http://dl.dropbox.com/u/361747/evil-ad.js"; //testing
             target = document.getElementById(targetloc);
             target.innerHTML = ""; //make it blank
@@ -75,7 +75,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
                 }
               }
               */
-              console.log(targetloc + " - " + str)
+              //console.log(targetloc + " - " + str)
               //Logic to parse str and $LAB-ify external script goes here
               if (!(str.match(/<script/i))){
                 // OK no script tags in there inject HTML
