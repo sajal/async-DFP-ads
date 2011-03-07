@@ -15,6 +15,20 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
 
 (function(){
   var targets = [];
+  function runScripts(e) {
+  	if (e.nodeType != 1) return; //if it's not an element node, return
+    
+    if (e.tagName.toLowerCase() == 'script') {
+      eval(e.text); //run the script
+    }
+    else {
+      var n = e.firstChild;
+      while ( n ) {
+        if ( n.nodeType == 1 ) runScripts( n ); //if it's an element node, recurse
+        n = n.nextSibling;
+      }
+  	}
+  }
   function docwrt(str){
           console.log(str);
     var script = str.replace(/(.*)\=\"/g, '').replace(/\"(.*)/g, '');
@@ -47,6 +61,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             adscript = adscript.replace(/\'/g, "");
             console.log(targetloc + " - " + str);
             console.log(targetloc + " - " + adscript);
+//            adscript = "http://dl.dropbox.com/u/361747/evil-ad.js"; //testing
             target = document.getElementById(targetloc);
             target.innerHTML = ""; //make it blank
             function renderad(str){
@@ -62,12 +77,19 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
               */
               console.log(targetloc + " - " + str)
               //Logic to parse str and $LAB-ify external script goes here
-              if (!(str.match(/\<script/i))){
+              if (!(str.match(/<script/i))){
                 // OK no script tags in there inject HTML
                 
                 target.innerHTML += str;
+                } else if (!(str.match(/src/i))) {
+                  // :( has script but not external
+                  //parse the inner portion and eval it.
+                  //$('leaderboard').set('html', str);
+                target.innerHTML += str;
+                runScripts(target);
                 } else {
-                  // :'( has script
+                  // :'( has external script
+                  alert("im broken :(");
                 }
             }
             document.write = renderad;    
