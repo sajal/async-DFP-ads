@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title> Async demonstration of DFP iframe loading</title>
+</head>
+<body>
+  <div id="leaderboard" style="height:90px;width:728px;"><strong> Leaderboard should come here </strong></div>
+    <div id="contents">
+      <div id="skyscraper" style="height:600px;width:160px;float:right;"> <strong>skyscraper should come here </strong> </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras placerat neque quis orci pellentesque sollicitudin. In nec metus purus, a lacinia dui. Nullam sagittis hendrerit elit, a volutpat elit ornare a. Ut condimentum, nisi sed semper hendrerit, sem nunc egestas lorem, sit amet vulputate eros ligula id purus. Phasellus et massa eros. Mauris tellus dolor, ultricies ac posuere mattis, consequat at ante. Nulla eget dui sapien. Integer sem nibh, aliquam quis ornare vitae, auctor a mauris. Phasellus vitae nisl ut lacus fringilla lacinia. Pellentesque vel augue urna. Quisque velit est, pulvinar sit amet feugiat vitae, ultrices non enim. Maecenas auctor suscipit nibh, hendrerit consequat risus suscipit sed.</p>
+
+        <p>Morbi vel enim in arcu scelerisque fringilla. Nunc pharetra velit a eros condimentum ornare. Vivamus imperdiet iaculis tincidunt. Maecenas pulvinar sapien eu lorem feugiat pellentesque in eu nulla. Sed vitae odio metus. Vestibulum ac lorem nisl. Integer tempus tellus congue ipsum commodo viverra. Praesent vitae scelerisque turpis. Vivamus arcu augue, interdum nec bibendum non, ornare non odio. Sed at varius velit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
+    </div>
+
+
+<script type="text/javascript">
+var DFPpubid = 'ca-pub-7046344781760701';
+var adslots = [{"pubid": "ca-pub-7046344781760701",
+  "slotname": "test_async_lb",
+  "width": 728,
+  "height": 90,
+  "target": "leaderboard"
+  },
+  {"pubid": "ca-pub-7046344781760701",
+  "slotname": "test_async_sky",
+  "width": 160,
+  "height": 600,
+  "target": "skyscraper"
+  }];
+
+</script>
+<script type="text/javascript" src="LAB.min.js"> </script>
+<script type="text/javascript">
+      $LAB.script("../dfp-lab-regular.js").wait()
+</script>
+
+
+
+</body></html>
