@@ -19,7 +19,8 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
   	if (e.nodeType != 1) return; //if it's not an element node, return
     
     if (e.tagName.toLowerCase() == 'script') {
-      eval(e.text); //run the script
+      console.log("Evaling" + " - " + e.text);
+      eval(e.text); //run the script      
     }
     else {
       var n = e.firstChild;
@@ -61,36 +62,28 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             adscript = adscript.replace(/\'/g, "");
             //console.log(targetloc + " - " + str);
             //console.log(targetloc + " - " + adscript);
-//            adscript = "http://dl.dropbox.com/u/361747/evil-ad.js"; //testing
+            //adscript = "http://dl.dropbox.com/u/361747/evil-ad.js"; //testing
             target = document.getElementById(targetloc);
             target.innerHTML = ""; //make it blank
             function renderad(str){
-              //try to guess slotname to determine target
-              /*              
-              for (y in adslots){
-                console.log(adslots[y].slotname);
-                if (str.match(adslots[y].slotname)){
-                  console.log("yay");
-                  var targetdiv = adslots[y].target;
-                }
-              }
-              */
-              //console.log(targetloc + " - " + str)
+              console.log(targetloc + " - " + str)
               //Logic to parse str and $LAB-ify external script goes here
               if (!(str.match(/<script/i))){
-                // OK no script tags in there inject HTML
+                // :D OK no script tags in there inject HTML
                 
                 target.innerHTML += str;
-                } else if (!(str.match(/src/i))) {
-                  // :( has script but not external
-                  //parse the inner portion and eval it.
-                  //$('leaderboard').set('html', str);
+              } else if (!(str.match(/script.*src/i))) {
+              // :( has script but not external
+              //parse the inner portion and eval it.
+              //$('leaderboard').set('html', str);
                 target.innerHTML += str;
                 runScripts(target);
-                } else {
+              } else {
                   // :'( has external script
-                  alert("im broken :(");
-                }
+                //target.innerHTML += str;
+                //runScripts(target);                
+                console.log("im broken :(");
+              }
             }
             document.write = renderad;    
             
