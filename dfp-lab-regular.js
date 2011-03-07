@@ -19,7 +19,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
   	if (e.nodeType != 1) return; //if it's not an element node, return
     
     if (e.tagName.toLowerCase() == 'script') {
-      console.log("Evaling" + " - " + e.text);
+      //console.log("Evaling" + " - " + e.text);
       eval(e.text); //run the script      
     }
     else {
@@ -66,7 +66,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             target = document.getElementById(targetloc);
             target.innerHTML = ""; //make it blank
             function renderad(str){
-              console.log(targetloc + " - " + str)
+              //console.log(targetloc + " - " + str)
               //Logic to parse str and $LAB-ify external script goes here
               if (!(str.match(/<script/i))){
                 // :D OK no script tags in there inject HTML
@@ -82,7 +82,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
                   // :'( has external script
                 //target.innerHTML += str;
                 //runScripts(target);                
-                console.log("im broken :(");
+                //console.log("im broken :(");
               }
             }
             document.write = renderad;    
