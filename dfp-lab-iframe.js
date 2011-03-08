@@ -14,46 +14,44 @@ http://www.opensource.org/licenses/bsd-license.php
 
 */
 
-(function(){
+// usage DFPasync(adslots, DFPpubid);
+var DFPasync = (function(adslots, DFPpubid){
   function docwrt(str){
-    //console.log(str);
     var script = str.replace(/(.*)\=\"/g, '').replace(/\"(.*)/g, '');
-          //console.log(script.match(/cookie\.js/g));
-          if (script.match(/cookie\.js/g)){
-            //console.log("cookiejs")
+    if (script.match(/cookie\.js/g)){
+      // When user does not have a tracking cookie installed, Google writes a script 
+      // tag to install the cookie.
       $LAB.script(script).wait();
     } else {
       $LAB.script(script).wait(function(){
+        // (Step 4)Still bootstrapping -- no support yet(TODO) for optional step 3 i.e. setting page attributes
         GA_googleUseIframeRendering();
         // following function makes the magic happen!
         function Wrapper_googleFillSlotWithSize(targetad){
-          var pubid = targetad["pubid"];
-          var slotname  = targetad["slotname"];
-          var width = targetad["width"];
-          var height = targetad["height"];
-          var target  = targetad["target"];
           var docwrttemp = function(str){
-            //console.log(str);
-            target = document.getElementById(target);
-            target.innerHTML = str;
+            // fills the html from GA_googleFillSlotWithSize into the desired element
+            document.getElementById(targetad.target).innerHTML = str;
           };  
-          document.write = docwrttemp;
-          GA_googleFillSlotWithSize(pubid, slotname, width, height);
+          document.write = docwrttemp; // intercepts document.write from GA_googleFillSlotWithSize()
+          //step 5: The actual function with document.write()'s an iframe
+          GA_googleFillSlotWithSize(targetad.pubid, targetad.slotname, targetad.width, targetad.height);
         }
         for (var x in adslots){
-            // usage of the new wrapper here.see more info about adslots object in docs
+          //using wrapper to call GA_googleFillSlotWithSize
           Wrapper_googleFillSlotWithSize(adslots[x]);
         }
       });
     }
   }
   
-  if (adslots){
+  if (adslots){ //load DFP only if global adslots are loaded
     document.write = docwrt; //intercepts document.write from below script
+    // iframe loader doc: http://www.google.com/support/dfp_sb/bin/answer.py?hl=en&answer=90777
+    // (Step 1): The first script tag -- Execution starts here
     $LAB.script("http://partner.googleadservices.com/gampad/google_service.js").wait(function(){
-      GS_googleAddAdSenseService(DFPpubid);
-      GS_googleEnableAllServices();
+      // (Step 2)
+      GS_googleAddAdSenseService(DFPpubid); // DFPpubid = global variable ca-pub-XXXX
+      GS_googleEnableAllServices(); // This has a document.write which we intercept using docwrt() function
     });
   }
-
-})();
+});
