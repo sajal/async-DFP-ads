@@ -5,6 +5,13 @@ DFP Async Loader
 This method uses DFP's iframe tagging method which *does not* allow expandable ad units!
 
 IMPORTANT: This script must be called AFTER LABjs is loaded.
+
+Copyright (c) 2011, Sajal Kayan
+All rights reserved.
+
+Released under The BSD license as defined at the following URL:-
+http://www.opensource.org/licenses/bsd-license.php
+
 */
 
 (function(){
