@@ -75,15 +75,15 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
               if (!(str.match(/<script/i))){
                 // :D OK no script tags in there inject HTML
                 
-                docwrtbuff += str;
+                targettmp.innerHTML += str;
               } else if (!(str.match(/script.*src/i))) {                
               // :( has script but not external
               //parse the inner portion and eval it.
               //$('leaderboard').set('html', str);
-                docwrtbuff += str;
+                targettmp.innerHTML += str;
                 //runScripts(target);
               } else {
-                docwrtbuff += str;
+                targettmp.innerHTML += str;
                   // :'( has external script
                 //target.innerHTML += str;
                 //runScripts(target);                
@@ -93,13 +93,17 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             document.write = renderad;    
             
             $LAB.script(adscript).wait(function(){
-              targettmp.innerHTML = docwrtbuff;
+              console.log(docwrtbuff);
+//              targettmp.innerHTML = docwrtbuff;
               scripts = targettmp.getElementsByTagName('script');
               for (var i = 0; i < scripts.length; i++) { 
                 try {
+                  scr = scripts[i].setAttribute("type", "text/javascript")
                   scr = scripts[i].attributes.getNamedItem("src").value;
                   scripts[i].removeAttribute("src");
-                  scripts[i].innerHTML = "var yes = 'ddd';"
+                  scripts[i].innerHTML = 'document.write(" - done")'
+                  // How the fuck am I supposed to make cross domain synchronously?
+                  // Should I even be considering synchronous request????
                 } catch(err) {
                   console.log(err);
                 }
