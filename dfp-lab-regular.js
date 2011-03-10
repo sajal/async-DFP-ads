@@ -95,8 +95,8 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             $LAB.script(adscript).wait(function(){
               console.log(docwrtbuff);
 //              targettmp.innerHTML = docwrtbuff;
-              scripts = targettmp.getElementsByTagName('script');
-              for (var i = 0; i < scripts.length; i++) { 
+//              scripts = targettmp.getElementsByTagName('script');
+              /* for (var i = 0; i < scripts.length; i++) { 
                 try {
                   scr = scripts[i].setAttribute("type", "text/javascript")
                   scr = scripts[i].attributes.getNamedItem("src").value;
@@ -107,10 +107,10 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
                 } catch(err) {
                   console.log(err);
                 }
-              }
+                } */
               target.appendChild(targettmp);
               
-              
+              // needs to wait before proceeding to the next slot!
               //runScripts(target);
               if (adslots.length > 0){
                 Wrapper_GA_googleFillSlot(adslots.pop());
