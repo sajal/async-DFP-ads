@@ -15,7 +15,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
 
 (function(){
   var targets = [];
-  function runScripts(e) {
+  function runScripts(e) {    
   	if (e.nodeType != 1) return; //if it's not an element node, return
     
     if (e.tagName.toLowerCase() == 'script') {
@@ -30,6 +30,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
       }
   	}
   }
+  var docwrtbuff = '';
   function docwrt(str){
 //          console.log(str);
     var script = str.replace(/(.*)\=\"/g, '').replace(/\"(.*)/g, '');
@@ -53,6 +54,7 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
         GA_googleFetchAds();
         // now comes the fun part.. rendering them
         var Wrapper_GA_googleFillSlot = function(targetad){
+          docwrtbuff = ''
           var slotname  = targetad["slotname"];
           var targetloc  = targetad["target"];
           targets.push = {"slotname": slotname, "targetloc": targetloc};
@@ -62,23 +64,26 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             adscript = adscript.replace(/\'/g, "");
             //console.log(targetloc + " - " + str);
             //console.log(targetloc + " - " + adscript);
-            //adscript = "http://dl.dropbox.com/u/361747/evil-ad.js"; //testing
+            adscript = "http://dl.dropbox.com/u/361747/evil-ad.js"; //testing
+            targettmp = document.createElement("span");
             target = document.getElementById(targetloc);
+            targettmp.innerHTML = ""; //make it blank
             target.innerHTML = ""; //make it blank
             function renderad(str){
-              //console.log(targetloc + " - " + str)
+              console.log(targetloc + " - " + str)
               //Logic to parse str and $LAB-ify external script goes here
               if (!(str.match(/<script/i))){
                 // :D OK no script tags in there inject HTML
                 
-                target.innerHTML += str;
-              } else if (!(str.match(/script.*src/i))) {
+                docwrtbuff += str;
+              } else if (!(str.match(/script.*src/i))) {                
               // :( has script but not external
               //parse the inner portion and eval it.
               //$('leaderboard').set('html', str);
-                target.innerHTML += str;
-                runScripts(target);
+                docwrtbuff += str;
+                //runScripts(target);
               } else {
+                docwrtbuff += str;
                   // :'( has external script
                 //target.innerHTML += str;
                 //runScripts(target);                
@@ -88,6 +93,21 @@ INCOMPLETE SCRIPT : WILL BREAK YOUR SITE
             document.write = renderad;    
             
             $LAB.script(adscript).wait(function(){
+              targettmp.innerHTML = docwrtbuff;
+              scripts = targettmp.getElementsByTagName('script');
+              for (var i = 0; i < scripts.length; i++) { 
+                try {
+                  scr = scripts[i].attributes.getNamedItem("src").value;
+                  scripts[i].removeAttribute("src");
+                  scripts[i].innerHTML = "var yes = 'ddd';"
+                } catch(err) {
+                  console.log(err);
+                }
+              }
+              target.appendChild(targettmp);
+              
+              
+              //runScripts(target);
               if (adslots.length > 0){
                 Wrapper_GA_googleFillSlot(adslots.pop());
               }
